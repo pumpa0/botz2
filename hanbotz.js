@@ -19,7 +19,6 @@ const { smsg, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, 
 let { msgFilter } = require('./lib/antispam')
 const { color, bgcolor } = require("./lib/color")
 const cerpen = require('./lib/cerpen.js')
-let { msgFilter } = require('./lib/antispam')
 
 //__________ read database __________ //
 let tebaklagu = db.data.game.tebaklagu = []
