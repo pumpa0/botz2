@@ -30,8 +30,6 @@ let caklontong = db.data.game.lontong = []
 let caklontong_desk = db.data.game.lontong_desk = []
 let tebakkalimat = db.data.game.kalimat = []
 let tebaklirik = db.data.game.lirik = []
-let tebaktebakan = db.data.game.tebakan = []
-let siapakahaku = db.data.game.siapakahaku = []
 let vote = db.data.others.vote = []
 
 // __________ //
@@ -303,23 +301,7 @@ ${Array.from(room.jawaban, (jawaban, index) => {
             } else m.reply('*Jawaban Salah!*')
         }
 	    
-	if (tebaktebakan.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
-            kuis = true
-            jawaban = tebaktebakan[m.sender.split('@')[0]]
-            if (budy.toLowerCase() == jawaban) {
-                await m.reply(`Tebak Tebakan\n\nJawaban Benar 🎉`)
-                delete tebaktebakan[m.sender.split('@')[0]]
-            } else m.reply('*Jawaban Salah!*')
-        }
-        
-        if (siapakahaku.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
-            kuis = true
-            jawaban = siapakahaku[m.sender.split('@')[0]]
-            if (budy.toLowerCase() == jawaban) {
-                await m.reply(`Tebak Tebakan\n\nJawaban Benar 🎉`)
-                delete siapakahaku[m.sender.split('@')[0]]
-            } else m.reply('*Jawaban Salah!*')
-        }
+	
         
         
         // __________ TicTacToe __________
@@ -771,34 +753,6 @@ m.reply(sawer)
                     await m.reply(`Waktu Habis\nJawaban:  ${caklontong[m.sender.split('@')[0]]}\nDeskripsi : ${caklontong_desk[m.sender.split('@')[0]]}`)
                     delete caklontong[m.sender.split('@')[0]]
 		    delete caklontong_desk[m.sender.split('@')[0]]
-                    }
-                } else if (args[0] === 'tebakan') {
-                    if (tebakkata.hasOwnProperty(m.sender.split('@')[0])) throw "Masih Ada Sesi Yang Belum Diselesaikan!"
-                    let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebaktebakan.json')
-                    let result = anu[Math.floor(Math.random() * anu.length)]
-                    hanbotz.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\n${result.soal}\nWaktu : 60s`, m).then(() => {
-                    tebaktebakan[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
-                    })
-                    db.data.users[m.sender].game -= 1 
-                    await sleep(60000)
-                    if (tebaktebakan.hasOwnProperty(m.sender.split('@')[0])) {
-                    console.log("Jawaban: " + result.jawaban)
-                    await m.reply(`Waktu Habis\nJawaban:  ${tebaktebakan[m.sender.split('@')[0]]}`)
-                    delete tebaktebakan[m.sender.split('@')[0]]
-                    }
-                } else if (args[0] === 'siapakahaku') {
-                    if (siapakahaku.hasOwnProperty(m.sender.split('@')[0])) throw "Masih Ada Sesi Yang Belum Diselesaikan!"
-                    let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/siapakahaku.json')
-                    let result = anu[Math.floor(Math.random() * anu.length)]
-                    hanbotz.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\n${result.soal}\nWaktu : 60s`, m).then(() => {
-                    siapakahaku[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
-                    })
-                    db.data.users[m.sender].game -= 1 
-                    await sleep(60000)
-                    if (siapakahaku.hasOwnProperty(m.sender.split('@')[0])) {
-                    console.log("Jawaban: " + result.jawaban)
-                    await m.reply(`Waktu Habis\nJawaban:  ${siapakahaku[m.sender.split('@')[0]]}`)
-                    delete siapakahaku[m.sender.split('@')[0]]
                     }
                 } 
             }
