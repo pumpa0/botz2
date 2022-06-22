@@ -2779,8 +2779,8 @@ case 'darkjoke': {
 	    break
 case 'meme': {
 	if (!isPremium && global.db.data.users[m.sender].limit < 1) return m.reply('Limit Harian Anda Telah Habis') 
-                let anu = (`https://api.akuari.my.id/randomimage/darkjokes1`)
-                hanbotz.sendMessage(m.chat, { image: { url: anu }, caption: `Meme` }, { quoted: m })
+                memm = await fetchJson(`https://api.akuari.my.id/other/meme`)
+hanbotz.sendMedia(m.chat, memm.image, '', `${memm.title}`, m)
                 db.data.users[m.sender].limit -= 1 
             }
 	    break
@@ -3430,10 +3430,6 @@ case 'demote2': {
 case 'limit': case 'ceklimit':
 let userrr = global.db.data.users[m.sender]
 m.reply(`*｢  LIMIT  ｣*\n\n*Harian:* ${userrr.limit}\n*Game:* ${userrr.game}\n\n_Note:_ Limit Akan Direset Pada Pukul 12 Siang dan 11 Malam\n`)
-break
-case 'meme2':
-memm = await fetchJson(`https://api.akuari.my.id/other/meme`)
-hanbotz.sendMedia(m.chat, memm.image, '', `${memm.title}`, m)
 break
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
             default:
