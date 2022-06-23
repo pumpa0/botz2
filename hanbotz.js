@@ -633,11 +633,6 @@ Silahkan @${m.mentionedJid[0].split`@`[0]} untuk ketik terima/tolak`
             }
             }
             break
-	    case 'donasi': case 'sewabot': case 'sewa': case 'buypremium': case 'donate': 
-	sawer = `*｢  DONATE  ｣*\n\nlink.hanbotz.xyz/donasi\n`
-m.reply(sawer)
-            break
-            
             case '/chat': {
                 if (!isCreator) return
                 if (!q) throw 'Option : 1. mute\n2. unmute\n3. archive\n4. unarchive\n5. read\n6. unread\n7. delete'
@@ -1213,7 +1208,7 @@ m.reply(`*Example:* group open/close`)
                 }
              }
              break
-             case 'mute': {
+             case '/mute': {
                 if (!m.isGroup) throw mess.group
                 if (!isCreator) return
 if (!text) return m.reply(`*Example*: mute on/off`)
@@ -1266,13 +1261,8 @@ if (!text) return m.reply(`*Example*: mute on/off`)
                     await sleep(1500)
                     let btn = [{
                                 urlButton: {
-                                    displayText: 'Ga Join Ban',
+                                    displayText: 'Join',
                                     url: 'https://chat.whatsapp.com/KBxslpQTy08Djs32qK2TJQ'
-                                }
-                            }, {
-                                urlButton: {
-                                    displayText: 'Owner',
-                                    url: 'wa.me/6285731855426'
                                 }
                             }, {
                                 quickReplyButton: {
@@ -1297,11 +1287,6 @@ if (!text) return m.reply(`*Example*: mute on/off`)
                                 urlButton: {
                                     displayText: 'Join',
                                     url: 'https://chat.whatsapp.com/KBxslpQTy08Djs32qK2TJQ'
-                                }
-                            }, {
-                                urlButton: {
-                                    displayText: 'Owner',
-                                    url: 'wa.me/6285731855426'
                                 }
                             }, {
                                 quickReplyButton: {
@@ -1400,7 +1385,6 @@ if (!text) return m.reply(`*Example*: mute on/off`)
             m.reply(db)
         }
         break
-            
             case 'toimage': case 'toimg': {
                 if (!quoted) throw 'Reply stiker'
                 if (!/webp/.test(mime)) throw `balas stiker dengan caption *${prefix + command}*`
@@ -1637,7 +1621,6 @@ hanbotz.sendMessage(m.chat, { image: { url: images }, caption: `*Query* : ${text
                 hanbotz.sendMessage(m.chat, { image: { url: result }, caption: '• Media Url : '+result }, { quoted: m })
             }
             break
-            
 	    case 'couple': {
                 if (!isPremium && global.db.data.users[m.sender].limit < 1) return m.reply('Limit Harian Anda Telah Habis') 
                 let anu = await fetchJson('https://raw.githubusercontent.com/iamriz7/kopel_/main/kopel.json')
@@ -1647,20 +1630,6 @@ hanbotz.sendMessage(m.chat, { image: { url: images }, caption: `*Query* : ${text
                 db.data.users[m.sender].limit -= 1 
             }
 	    break 
-            case 'coffe': case 'kopi': {
-            let buttons = [
-                    {buttonId: `coffe`, buttonText: {displayText: 'Next Image'}, type: 1}
-                ]
-                let buttonMessage = {
-                    image: { url: 'https://coffee.alexflipnote.dev/random' },
-                    caption: `☕ Random Coffe`,
-                    footer: hanbotz.user.name,
-                    buttons: buttons,
-                    headerType: 4
-                }
-                hanbotz.sendMessage(m.chat, buttonMessage, { quoted: m })
-            }
-            break
             case 'wallpaper': {
                 if (!text) throw 'Masukkan Query Title'
 		let { wallpaper } = require('./lib/scraper')
@@ -1712,7 +1681,6 @@ hanbotz.sendMessage(m.chat, { image: { url: images }, caption: `*Query* : ${text
                 db.data.users[m.sender].limit -= 1 
             }
             break
-            
 	    case 'nomerhoki': case 'nomorhoki': {
                 if (!Number(text)) throw `Example : ${prefix + command} 6285731855426`
                 let anu = await primbon.nomer_hoki(Number(text))
@@ -2032,35 +2000,14 @@ case 'tiktoknowm': {
                 if (!text) throw 'Masukkan Query Link!'
                 m.reply(mess.wait)
                 let anu = await fetchJson(`https://api.akuari.my.id/downloader/tiktok?link=${text}`)
-                let buttons = [
-                    {buttonId: `tiktokmp3 ${text}`, buttonText: {displayText: '♫ Audio'}, type: 1}
-                ]
-                let buttonMessage = {
-                    video: { url: anu.result.nowm },
-                    caption: `${text}`,
-                    footer: 'HanBotz',
-                    buttons: buttons,
-                    headerType: 5
-                }
-                hanbotz.sendMessage(m.chat, buttonMessage, { quoted: m })
+                hanbotz.sendMessage(m.chat, { video: { url: anu, caption: `${text}` }, { quoted: m })
             }
             break
             case 'tiktokwm': case 'tiktokwatermark': {
                 if (!text) throw 'Masukkan Query Link!'
                 m.reply(mess.wait)
                 let anu = await fetchJson(`https://api.akuari.my.id/downloader/tiktok?link=${text}`)
-                let buttons = [
-               
-                    {buttonId: `tiktokmp3 ${text}`, buttonText: {displayText: '♫ Audio'}, type: 1}
-                ]
-                let buttonMessage = {
-                    video: { url: anu.result.video_original },
-                    caption: `${text}`,
-                    footer: 'HanBotz',
-                    buttons: buttons,
-                    headerType: 5
-                }
-                hanbotz.sendMessage(m.chat, buttonMessage, { quoted: m })
+                hanbotz.sendMessage(m.chat, { video: { url: anu, caption: `${text}` }, { quoted: m })
             }
             break
             case 'tiktokmp3': case 'tiktokaudio': {
@@ -2088,22 +2035,6 @@ case 'igstori': case 'igstory':
                 hanbotz.sendMessage(m.chat, { video: { url: anu.respon } }, { quoted: m })
             }
             break
-            case 'joox': case 'jooxdl': {
-                if (!text) throw 'No Query Title'
-                m.reply(mess.wait)
-                let anu = await fetchJson(api('zenz', '/downloader/joox', { query: text }, 'apikey'))
-                let msg = await hanbotz.sendImage(m.chat, anu.result.img, `• Title : ${anu.result.lagu}\n• Album : ${anu.result.album}\n• Singer : ${anu.result.penyanyi}\n• Publish : ${anu.result.publish}\n• Lirik :\n${anu.result.lirik.result}`, m)
-                hanbotz.sendMessage(m.chat, { audio: { url: anu.result.mp4aLink }, mimetype: 'audio/mpeg', fileName: anu.result.lagu+'.m4a' }, { quoted: msg })
-            }
-            break
-            case 'soundcloud': case 'scdl': {
-                if (!text) throw 'No Query Title'
-                m.reply(mess.wait)
-                let anu = await fetchJson(api('zenz', '/downloader/soundcloud', { url: isUrl(text)[0] }, 'apikey'))
-                let msg = await hanbotz.sendImage(m.chat, anu.result.thumb, `• Title : ${anu.result.title}\n• Url : ${isUrl(text)[0]}`)
-                hanbotz.sendMessage(m.chat, { audio: { url: anu.result.url }, mimetype: 'audio/mpeg', fileName: anu.result.title+'.m4a' }, { quoted: msg })
-            }
-            break
 	        case 'twitdl': case 'twitter': {
                 if (!text) throw 'Masukkan Query Link!'
                 m.reply(mess.wait)
@@ -2129,13 +2060,6 @@ case 'igstori': case 'igstory':
                 hanbotz.sendMessage(m.chat, {document: { url: anu.audio }, mimetype: 'audio/mpeg', fileName: `Twitter Audio by hanbotz.xyz.mp3`}, { quoted : m })
             }
             break
-	        case 'fbdl': case 'fb': case 'facebook': {
-                if (!text) throw 'Masukkan Query Link!'
-                m.reply(mess.wait)
-                let anu = await fetchJson(api('zenz', '/api/downloader/facebook', { url: text }, 'apikey'))
-                hanbotz.sendMessage(m.chat, { video: { url: anu.result.url }, caption: `• Title : ${anu.result.title}`}, { quoted: m })
-            }
-            break
 	        case 'pindl': case 'pinterestdl': {
                 if (!text) throw 'Masukkan Query Link!'
                 m.reply(mess.wait)
@@ -2143,37 +2067,6 @@ case 'igstori': case 'igstory':
                 hanbotz.sendMessage(m.chat, { video: { url: anu.result }, caption: `Download From ${text}` }, { quoted: m })
             }
             break
-            case 'umma': case 'ummadl': {
-	        if (!text) throw `Example : ${prefix + command} https://umma.id/channel/video/post/gus-arafat-sumber-kecewa-84464612933698`
-                let { umma } = require('./lib) scraper')
-		let anu = await umma(isUrl(text)[0])
-		if (anu.type == 'video') {
-		    let buttons = [
-                        {buttonId: `ytmp3 ${anu.media[0]} 128kbps`, buttonText: {displayText: '♫ Audio'}, type: 1},
-                        {buttonId: `ytmp4 ${anu.media[0]} 360p`, buttonText: {displayText: '► Video'}, type: 1}
-                    ]
-		    let buttonMessage = {
-		        image: { url: anu.author.profilePic },
-			caption: `
-• Title : ${anu.title}
-• Author : ${anu.author.name}
-• Like : ${anu.like}
-• Caption : ${anu.caption}
-• Url : ${anu.media[0]}
-Untuk Download Media Silahkan Klik salah satu Button dibawah ini atau masukkan command ytmp3/ytmp4 dengan url diatas
-`,
-			footer: hanbotz.user.name,
-			buttons,
-			headerType: 4
-		    }
-		    hanbotz.sendMessage(m.chat, buttonMessage, { quoted: m })
-		} else if (anu.type == 'image') {
-		    anu.media.map(async (url) => {
-		        hanbotz.sendMessage(m.chat, { image: { url }, caption: `• Title : ${anu.title}\n• Author : ${anu.author.name}\n• Like : ${anu.like}\n• Caption : ${anu.caption}` }, { quoted: m })
-		    })
-		}
-	    }
-	    break
         case 'ringtone': {
 		if (!text) throw `Example : ${prefix + command} black rover`
         let { ringtone } = require('./lib/scraper')
@@ -2778,18 +2671,9 @@ case 'darkjoke': {
             }
 	    break
 case 'meme': {
-	if (!isPremium && global.db.data.users[m.sender].limit < 1) return m.reply('Limit Harian Anda Telah Habis') 
-                memm = await fetchJson(`https://api.akuari.my.id/other/meme`)
-hanbotz.sendMedia(m.chat, memm.image, '', `${memm.title}`, m)
-                db.data.users[m.sender].limit -= 1 
+	m.reply(`_Maintenance_`)
             }
 	    break
-           
-case 'lirik':
-                    if (args.length == 0) return m.reply(`Example: ${prefix + command} Melukis Senja`)
-                    lirr = await fetchJson(`https://api.akuari.my.id/search/lirik?query=${text}`)
-                    m.reply(`*Judul:* ${lirr.result.judul}\n*Lirik:*\n${lirr.result.lirik}`)
-                    break
 case 'juliancraft': case 'jcraft':
 	let jcc = await fetchJson(`https://minecraftpocket-servers.com/api/?object=servers&element=detail&key=fsMiIFou6d7gJL66d3ai1HqcIvuFABOWLrc`)
 	jumc = (`_*Julian Craft*_\n\n*Status*: [ ${jcc.is_online} ]  (0=offline 1=online)\n\n*Name*: ${jcc.name}\n*Address*: ${jcc.address}\n*Port*: ${jcc.port}\n*Version*: ${jcc.version}\n*Players*: ${jcc.players} / ${jcc.maxplayers}\n\n*Votes*: ${jcc.votes}\n*Rank*: ${jcc.rank}\n*Score*: ${jcc.score}\n\n*Last Check*: ${jcc.last_check}\n*Last_Online*: ${jcc.last_online}\n\n*Url*: ${jcc.url}`)
@@ -2877,12 +2761,6 @@ if (!isPremium && global.db.data.users[m.sender].limit < 1) return m.reply('Limi
                         hanbotz.sendMessage(m.chat, { image: { url: htp }, caption: `HanBotz` }, { quoted: m })
                 db.data.users[m.sender].limit -= 1 
                     break
-case 'nulis':
-if (!text) throw `text nya?`
-m.reply(`wait...`)
-nulls = (`https://api.akuari.my.id/other/nulis?text=${text}`)
-hanbotz.sendMessage(m.chat, { image: { url: nulls }, caption: `HanBotz` }, { quoted: m })
-break
 
 case 'menu': {
 let user = global.db.data.users[m.sender]
@@ -3028,6 +2906,10 @@ m.reply(`*｢  REPORT BUG/ERROR  ｣*\n\nlink.hanbotz.xyz/report\n`)
 break
 case 'gchb':
 m.reply(`*｢  GROUP HANBOTZ OFFICIAL  ｣*\n\nlink.hanbotz.xyz/grup\n`)
+break
+case 'donasi': case 'donate': 
+sawer = `*｢  DONATE  ｣*\n\nlink.hanbotz.xyz/donasi\n`
+m.reply(sawer)
 break
 case 'groupmenu': 
 if (!m.isGroup) throw mess.group
