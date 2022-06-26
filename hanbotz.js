@@ -51,7 +51,7 @@ module.exports = hanbotz = async (hanbotz, m, chatUpdate, store) => {
         const from = m.chat
         const quoted = m.quoted ? m.quoted : m
         const mime = (quoted.msg || quoted).mimetype || ''
-        const isMedia = /image|video|sticker|audio|gif/.test(mime)
+        const isMedia = /image|video|sticker|audio/.test(mime)
 	
         // Group __________
         const groupMetadata = m.isGroup ? await hanbotz.groupMetadata(m.chat).catch(e => {}) : ''
@@ -2000,14 +2000,14 @@ case 'tiktoknowm': {
                 if (!text) throw 'Masukkan Query Link!'
                 m.reply(mess.wait)
                 let anu = await fetchJson(`https://api.akuari.my.id/downloader/tiktok?link=${text}`)
-                hanbotz.sendMessage(m.chat, { video: { url: anu, caption: `${text}` }, { quoted: m })
+                hanbotz.sendMessage(m.chat, { video: { url: anu}, caption: `${text}`}, { quoted: m })
             }
             break
             case 'tiktokwm': case 'tiktokwatermark': {
                 if (!text) throw 'Masukkan Query Link!'
                 m.reply(mess.wait)
                 let anu = await fetchJson(`https://api.akuari.my.id/downloader/tiktok?link=${text}`)
-                hanbotz.sendMessage(m.chat, { video: { url: anu, caption: `${text}` }, { quoted: m })
+                hanbotz.sendMessage(m.chat, { video: { url: anu}, caption: `${text}`}, { quoted: m })
             }
             break
             case 'tiktokmp3': case 'tiktokaudio': {
